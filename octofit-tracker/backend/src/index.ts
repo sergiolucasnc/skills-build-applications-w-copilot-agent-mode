@@ -12,7 +12,7 @@ const baseUrl = codespaceName
 app.use(express.json());
 
 app.get('/api/health', (_request, response) => {
-  response.json({ status: 'ok' });
+  response.json({ status: 'ok', octopus: 'All eight arms are ready for action.' });
 });
 
 app.get('/api/', (_request, response) => {
