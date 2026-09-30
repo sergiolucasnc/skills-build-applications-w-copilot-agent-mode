@@ -1,8 +1,14 @@
 import { itemKey } from '../utils/formatters.js'
 import { useCollection } from '../hooks/useCollection.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+  || import.meta.env.CODESPACE_NAME?.trim()
+const workoutsEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/workouts/`
+  : 'http://localhost:8000/api/workouts/'
+
 function Workouts() {
-  const { items, loading, error } = useCollection('workouts')
+  const { items, loading, error } = useCollection(workoutsEndpoint)
 
   return (
     <section aria-labelledby="workouts-title">

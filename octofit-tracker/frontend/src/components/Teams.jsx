@@ -1,8 +1,14 @@
 import { displayName, itemKey } from '../utils/formatters.js'
 import { useCollection } from '../hooks/useCollection.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+  || import.meta.env.CODESPACE_NAME?.trim()
+const teamsEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/teams/`
+  : 'http://localhost:8000/api/teams/'
+
 function Teams() {
-  const { items, loading, error } = useCollection('teams')
+  const { items, loading, error } = useCollection(teamsEndpoint)
 
   return (
     <section aria-labelledby="teams-title">

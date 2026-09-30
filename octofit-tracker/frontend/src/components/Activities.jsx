@@ -1,8 +1,14 @@
 import { displayName, formatDate, itemKey } from '../utils/formatters.js'
 import { useCollection } from '../hooks/useCollection.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+  || import.meta.env.CODESPACE_NAME?.trim()
+const activitiesEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/activities/`
+  : 'http://localhost:8000/api/activities/'
+
 function Activities() {
-  const { items, loading, error } = useCollection('activities')
+  const { items, loading, error } = useCollection(activitiesEndpoint)
 
   return (
     <section aria-labelledby="activities-title">

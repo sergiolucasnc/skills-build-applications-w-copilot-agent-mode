@@ -4,13 +4,13 @@ React 19 and Vite presentation tier for Octofit Tracker.
 
 ## Configure the API
 
-Define `VITE_CODESPACE_NAME` in `octofit-tracker/frontend/.env.local` with the Codespace name used by the API's forwarded port 8000:
+The frontend needs a Codespace name to build the API URL. Set `VITE_CODESPACE_NAME` in `octofit-tracker/frontend/.env.local` when running outside a Codespace:
 
 ```dotenv
 VITE_CODESPACE_NAME=your-codespace-name
 ```
 
-The frontend requests `https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/[component]/`. Restart the Vite development server after changing environment variables. If `VITE_CODESPACE_NAME` is unset, requests safely fall back to `http://localhost:8000/api/` for local development.
+In Codespaces, Vite uses the built-in `CODESPACE_NAME` when `VITE_CODESPACE_NAME` is not set; an explicit `VITE_CODESPACE_NAME` takes precedence. Requests use `https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/[component]/`. If neither variable is available, requests safely fall back to `http://localhost:8000/api/`. Restart Vite after changing `.env.local`.
 
 ## Run locally
 

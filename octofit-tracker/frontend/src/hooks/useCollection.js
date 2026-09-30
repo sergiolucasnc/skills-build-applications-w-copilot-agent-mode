@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react'
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
-const apiBaseUrl = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev/api`
-  : 'http://localhost:8000/api'
-
 function getCollection(payload) {
   if (Array.isArray(payload)) return payload
   if (Array.isArray(payload?.results)) return payload.results
@@ -13,7 +8,7 @@ function getCollection(payload) {
   return null
 }
 
-export function useCollection(resource) {
+export function useCollection(endpoint) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -23,7 +18,7 @@ export function useCollection(resource) {
 
     async function loadItems() {
       try {
-        const response = await fetch(`${apiBaseUrl}/${resource}/`, {
+        const response = await fetch(endpoint, {
           signal: controller.signal,
         })
         if (!response.ok) {
@@ -47,7 +42,7 @@ export function useCollection(resource) {
 
     loadItems()
     return () => controller.abort()
-  }, [resource])
+  }, [endpoint])
 
   return { items, loading, error }
 }

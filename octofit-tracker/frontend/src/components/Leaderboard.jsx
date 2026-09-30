@@ -1,8 +1,14 @@
 import { displayName, itemKey } from '../utils/formatters.js'
 import { useCollection } from '../hooks/useCollection.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+  || import.meta.env.CODESPACE_NAME?.trim()
+const leaderboardEndpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard/`
+  : 'http://localhost:8000/api/leaderboard/'
+
 function Leaderboard() {
-  const { items, loading, error } = useCollection('leaderboard')
+  const { items, loading, error } = useCollection(leaderboardEndpoint)
 
   return (
     <section aria-labelledby="leaderboard-title">
